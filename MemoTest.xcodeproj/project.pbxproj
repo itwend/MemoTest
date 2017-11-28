@@ -18,6 +18,8 @@
 		4923FD331FCDE7B90054B1EE /* UIColor+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD321FCDE7B90054B1EE /* UIColor+String.swift */; };
 		4923FD351FCDE8610054B1EE /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD341FCDE8610054B1EE /* Auth.storyboard */; };
 		4923FD371FCDE8820054B1EE /* PermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD361FCDE8820054B1EE /* PermissionViewController.swift */; };
+		4923FD3A1FCDF4FF0054B1EE /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD391FCDF4FF0054B1EE /* Recorder.swift */; };
+		4923FD3D1FCE059A0054B1EE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD3C1FCE059A0054B1EE /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		4923FD321FCDE7B90054B1EE /* UIColor+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+String.swift"; sourceTree = "<group>"; };
 		4923FD341FCDE8610054B1EE /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		4923FD361FCDE8820054B1EE /* PermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionViewController.swift; sourceTree = "<group>"; };
+		4923FD391FCDF4FF0054B1EE /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		4923FD3C1FCE059A0054B1EE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				4923FD151FCDE24F0054B1EE /* AppDelegate.swift */,
+				4923FD3B1FCE058A0054B1EE /* Player */,
+				4923FD381FCDF4ED0054B1EE /* Recorder */,
 				4923FD311FCDE79E0054B1EE /* Helpers */,
 				4923FD2B1FCDE6890054B1EE /* Auth */,
 				4923FD2A1FCDE6730054B1EE /* Records */,
@@ -112,6 +118,22 @@
 				4923FD321FCDE7B90054B1EE /* UIColor+String.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4923FD381FCDF4ED0054B1EE /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				4923FD391FCDF4FF0054B1EE /* Recorder.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		4923FD3B1FCE058A0054B1EE /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				4923FD3C1FCE059A0054B1EE /* Player.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +216,8 @@
 				4923FD371FCDE8820054B1EE /* PermissionViewController.swift in Sources */,
 				4923FD161FCDE24F0054B1EE /* AppDelegate.swift in Sources */,
 				4923FD2D1FCDE6920054B1EE /* Auth.swift in Sources */,
+				4923FD3D1FCE059A0054B1EE /* Player.swift in Sources */,
+				4923FD3A1FCDF4FF0054B1EE /* Recorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
