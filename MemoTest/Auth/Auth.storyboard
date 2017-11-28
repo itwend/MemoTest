@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Permission View Controller-->
+        <scene sceneID="MJg-7n-hp8">
+            <objects>
+                <viewController storyboardIdentifier="PermissionViewController" id="xic-lG-GHz" customClass="PermissionViewController" customModule="MemoTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y2X-dz-HOr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oG5-8e-bMn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7U-ea-x6z">
+                                <rect key="frame" x="21" y="575" width="332" height="52"/>
+                                <color key="backgroundColor" red="0.88235294119999996" green="0.31372549020000001" blue="0.015686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="Zt7-wr-Md8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="permissionMicButtonTouchUp:" destination="xic-lG-GHz" eventType="touchUpInside" id="YiD-BZ-VBa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HuL-Dk-bHc" firstAttribute="trailing" secondItem="x7U-ea-x6z" secondAttribute="trailing" constant="22" id="3Me-77-wd0"/>
+                            <constraint firstItem="oG5-8e-bMn" firstAttribute="bottom" secondItem="HuL-Dk-bHc" secondAttribute="bottom" id="9nE-nr-9Qj"/>
+                            <constraint firstItem="x7U-ea-x6z" firstAttribute="leading" secondItem="HuL-Dk-bHc" secondAttribute="leading" constant="21" id="e35-GU-2LG"/>
+                            <constraint firstItem="oG5-8e-bMn" firstAttribute="top" secondItem="Y2X-dz-HOr" secondAttribute="top" id="fwA-wF-szw"/>
+                            <constraint firstItem="oG5-8e-bMn" firstAttribute="leading" secondItem="HuL-Dk-bHc" secondAttribute="leading" id="hmI-rI-xZm"/>
+                            <constraint firstItem="oG5-8e-bMn" firstAttribute="trailing" secondItem="HuL-Dk-bHc" secondAttribute="trailing" id="jhN-Wf-oxk"/>
+                            <constraint firstItem="HuL-Dk-bHc" firstAttribute="bottom" secondItem="x7U-ea-x6z" secondAttribute="bottom" constant="40" id="zld-E2-8d7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HuL-Dk-bHc"/>
+                    </view>
+                    <connections>
+                        <outlet property="permissionMicButton" destination="x7U-ea-x6z" id="5rx-gd-CIh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AUJ-YU-BWF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="272.80000000000001" y="-155.17241379310346"/>
+        </scene>
+    </scenes>
+</document>

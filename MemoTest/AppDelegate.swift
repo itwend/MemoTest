@@ -12,12 +12,40 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var auth = Auth()
     var window: UIWindow?
-
-
+    static var instance = UIApplication.shared.delegate as! AppDelegate
+    
+    lazy var authViewController: UIViewController = {
+        let viewController = UIStoryboard(name: "Auth", bundle: nil).instantiateInitialViewController()
+        return viewController ?? UIViewController()
+    }()
+    
+    lazy var mainViewController: UIViewController = {
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        return viewController ?? UIViewController()
+    }()
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        changeRootViewController()
         return true
+    }
+    
+    func changeRootViewController() {
+        
+        if auth.isPermissionMic {
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = mainStoryboard.instantiateViewController(withIdentifier: "RecordsViewController") as! RecordsViewController
+            let navVC = NavigationController.init(rootViewController: controller)
+            self.window?.rootViewController = navVC
+        } else {
+            let authStoryboard: UIStoryboard = UIStoryboard(name: "Auth", bundle: nil)
+            let controller = authStoryboard.instantiateViewController(withIdentifier: "PermissionViewController") as! PermissionViewController
+            let navVC = NavigationController.init(rootViewController: controller)
+            self.window?.rootViewController = navVC
+        }
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

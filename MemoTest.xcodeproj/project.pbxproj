@@ -8,22 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		4923FD161FCDE24F0054B1EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD151FCDE24F0054B1EE /* AppDelegate.swift */; };
-		4923FD181FCDE24F0054B1EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD171FCDE24F0054B1EE /* ViewController.swift */; };
+		4923FD181FCDE24F0054B1EE /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD171FCDE24F0054B1EE /* RecordsViewController.swift */; };
 		4923FD1B1FCDE24F0054B1EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD191FCDE24F0054B1EE /* Main.storyboard */; };
 		4923FD1E1FCDE24F0054B1EE /* MemoTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD1C1FCDE24F0054B1EE /* MemoTest.xcdatamodeld */; };
 		4923FD201FCDE24F0054B1EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD1F1FCDE24F0054B1EE /* Assets.xcassets */; };
 		4923FD231FCDE24F0054B1EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD211FCDE24F0054B1EE /* LaunchScreen.storyboard */; };
+		4923FD2D1FCDE6920054B1EE /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD2C1FCDE6920054B1EE /* Auth.swift */; };
+		4923FD301FCDE7970054B1EE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD2F1FCDE7970054B1EE /* NavigationController.swift */; };
+		4923FD331FCDE7B90054B1EE /* UIColor+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD321FCDE7B90054B1EE /* UIColor+String.swift */; };
+		4923FD351FCDE8610054B1EE /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD341FCDE8610054B1EE /* Auth.storyboard */; };
+		4923FD371FCDE8820054B1EE /* PermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD361FCDE8820054B1EE /* PermissionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4923FD121FCDE24F0054B1EE /* MemoTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4923FD151FCDE24F0054B1EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4923FD171FCDE24F0054B1EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4923FD171FCDE24F0054B1EE /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		4923FD1A1FCDE24F0054B1EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4923FD1D1FCDE24F0054B1EE /* MemoTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoTest.xcdatamodel; sourceTree = "<group>"; };
 		4923FD1F1FCDE24F0054B1EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4923FD221FCDE24F0054B1EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4923FD241FCDE24F0054B1EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4923FD2C1FCDE6920054B1EE /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		4923FD2F1FCDE7970054B1EE /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		4923FD321FCDE7B90054B1EE /* UIColor+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+String.swift"; sourceTree = "<group>"; };
+		4923FD341FCDE8610054B1EE /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		4923FD361FCDE8820054B1EE /* PermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,14 +67,51 @@
 			isa = PBXGroup;
 			children = (
 				4923FD151FCDE24F0054B1EE /* AppDelegate.swift */,
-				4923FD171FCDE24F0054B1EE /* ViewController.swift */,
-				4923FD191FCDE24F0054B1EE /* Main.storyboard */,
+				4923FD311FCDE79E0054B1EE /* Helpers */,
+				4923FD2B1FCDE6890054B1EE /* Auth */,
+				4923FD2A1FCDE6730054B1EE /* Records */,
+				4923FD2E1FCDE77B0054B1EE /* GeneralNavigation */,
 				4923FD1F1FCDE24F0054B1EE /* Assets.xcassets */,
 				4923FD211FCDE24F0054B1EE /* LaunchScreen.storyboard */,
 				4923FD241FCDE24F0054B1EE /* Info.plist */,
 				4923FD1C1FCDE24F0054B1EE /* MemoTest.xcdatamodeld */,
 			);
 			path = MemoTest;
+			sourceTree = "<group>";
+		};
+		4923FD2A1FCDE6730054B1EE /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				4923FD171FCDE24F0054B1EE /* RecordsViewController.swift */,
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
+		4923FD2B1FCDE6890054B1EE /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				4923FD2C1FCDE6920054B1EE /* Auth.swift */,
+				4923FD361FCDE8820054B1EE /* PermissionViewController.swift */,
+				4923FD341FCDE8610054B1EE /* Auth.storyboard */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		4923FD2E1FCDE77B0054B1EE /* GeneralNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				4923FD191FCDE24F0054B1EE /* Main.storyboard */,
+				4923FD2F1FCDE7970054B1EE /* NavigationController.swift */,
+			);
+			path = GeneralNavigation;
+			sourceTree = "<group>";
+		};
+		4923FD311FCDE79E0054B1EE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4923FD321FCDE7B90054B1EE /* UIColor+String.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4923FD351FCDE8610054B1EE /* Auth.storyboard in Resources */,
 				4923FD231FCDE24F0054B1EE /* LaunchScreen.storyboard in Resources */,
 				4923FD201FCDE24F0054B1EE /* Assets.xcassets in Resources */,
 				4923FD1B1FCDE24F0054B1EE /* Main.storyboard in Resources */,
@@ -140,8 +188,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4923FD1E1FCDE24F0054B1EE /* MemoTest.xcdatamodeld in Sources */,
-				4923FD181FCDE24F0054B1EE /* ViewController.swift in Sources */,
+				4923FD181FCDE24F0054B1EE /* RecordsViewController.swift in Sources */,
+				4923FD331FCDE7B90054B1EE /* UIColor+String.swift in Sources */,
+				4923FD301FCDE7970054B1EE /* NavigationController.swift in Sources */,
+				4923FD371FCDE8820054B1EE /* PermissionViewController.swift in Sources */,
 				4923FD161FCDE24F0054B1EE /* AppDelegate.swift in Sources */,
+				4923FD2D1FCDE6920054B1EE /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +334,7 @@
 				DEVELOPMENT_TEAM = U28JUD5674;
 				INFOPLIST_FILE = MemoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dev.MemoTest;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.VoiceRec;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -297,7 +349,7 @@
 				DEVELOPMENT_TEAM = U28JUD5674;
 				INFOPLIST_FILE = MemoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dev.MemoTest;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.VoiceRec;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
