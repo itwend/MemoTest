@@ -57,7 +57,18 @@ open class Recorder: NSObject {
         switch state {
         case .record:
             recorder?.stop()
-            recorder = nil
+            
+            do {
+                let data = try Data(contentsOf: url)
+                StorageDataSource.shared.saveSound(date: Date(), data: data, name: "Best Sound - Ever Never" , duration: Date())
+                recorder = nil
+
+            } catch {
+                print("Unable to load data: \(error)")
+            }
+            
+            
+            
         default:
             break
         }

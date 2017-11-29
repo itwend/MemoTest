@@ -39,6 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let controller = mainStoryboard.instantiateViewController(withIdentifier: "RecordsViewController") as! RecordsViewController
             let navVC = NavigationController.init(rootViewController: controller)
             self.window?.rootViewController = navVC
+            if controller.managedObjectContext == nil {
+                controller.managedObjectContext = self.persistentContainer.viewContext
+            }
         } else {
             let authStoryboard: UIStoryboard = UIStoryboard(name: "Auth", bundle: nil)
             let controller = authStoryboard.instantiateViewController(withIdentifier: "PermissionViewController") as! PermissionViewController
