@@ -11,7 +11,6 @@
 		4923FD181FCDE24F0054B1EE /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD171FCDE24F0054B1EE /* RecordsViewController.swift */; };
 		4923FD1B1FCDE24F0054B1EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD191FCDE24F0054B1EE /* Main.storyboard */; };
 		4923FD1E1FCDE24F0054B1EE /* MemoTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD1C1FCDE24F0054B1EE /* MemoTest.xcdatamodeld */; };
-		4923FD201FCDE24F0054B1EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD1F1FCDE24F0054B1EE /* Assets.xcassets */; };
 		4923FD231FCDE24F0054B1EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD211FCDE24F0054B1EE /* LaunchScreen.storyboard */; };
 		4923FD2D1FCDE6920054B1EE /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD2C1FCDE6920054B1EE /* Auth.swift */; };
 		4923FD301FCDE7970054B1EE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD2F1FCDE7970054B1EE /* NavigationController.swift */; };
@@ -22,6 +21,10 @@
 		4923FD3D1FCE059A0054B1EE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD3C1FCE059A0054B1EE /* Player.swift */; };
 		4923FD401FCE1BAB0054B1EE /* StorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD3F1FCE1BAB0054B1EE /* StorageDataSource.swift */; };
 		4923FD421FCE217B0054B1EE /* RecordsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD411FCE217B0054B1EE /* RecordsCell.swift */; };
+		4923FD441FCEE6990054B1EE /* UIAlertController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD431FCEE6990054B1EE /* UIAlertController+Helpers.swift */; };
+		4923FD461FCEE72B0054B1EE /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD451FCEE72B0054B1EE /* UIViewController+Helpers.swift */; };
+		4923FD481FCEE8800054B1EE /* FieldsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD471FCEE8800054B1EE /* FieldsValidator.swift */; };
+		4923FD4A1FCEF46F0054B1EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD491FCEF46E0054B1EE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +33,6 @@
 		4923FD171FCDE24F0054B1EE /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		4923FD1A1FCDE24F0054B1EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4923FD1D1FCDE24F0054B1EE /* MemoTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoTest.xcdatamodel; sourceTree = "<group>"; };
-		4923FD1F1FCDE24F0054B1EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4923FD221FCDE24F0054B1EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4923FD241FCDE24F0054B1EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4923FD2C1FCDE6920054B1EE /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -42,6 +44,10 @@
 		4923FD3C1FCE059A0054B1EE /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		4923FD3F1FCE1BAB0054B1EE /* StorageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDataSource.swift; sourceTree = "<group>"; };
 		4923FD411FCE217B0054B1EE /* RecordsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsCell.swift; sourceTree = "<group>"; };
+		4923FD431FCEE6990054B1EE /* UIAlertController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Helpers.swift"; sourceTree = "<group>"; };
+		4923FD451FCEE72B0054B1EE /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
+		4923FD471FCEE8800054B1EE /* FieldsValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsValidator.swift; sourceTree = "<group>"; };
+		4923FD491FCEF46E0054B1EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,15 +81,15 @@
 			isa = PBXGroup;
 			children = (
 				4923FD151FCDE24F0054B1EE /* AppDelegate.swift */,
-				4923FD3E1FCE1B890054B1EE /* CoreData */,
-				4923FD3B1FCE058A0054B1EE /* Player */,
-				4923FD381FCDF4ED0054B1EE /* Recorder */,
 				4923FD311FCDE79E0054B1EE /* Helpers */,
+				4923FD3E1FCE1B890054B1EE /* CoreData */,
+				4923FD381FCDF4ED0054B1EE /* Recorder */,
+				4923FD3B1FCE058A0054B1EE /* Player */,
 				4923FD2B1FCDE6890054B1EE /* Auth */,
 				4923FD2A1FCDE6730054B1EE /* Records */,
 				4923FD2E1FCDE77B0054B1EE /* GeneralNavigation */,
-				4923FD1F1FCDE24F0054B1EE /* Assets.xcassets */,
 				4923FD211FCDE24F0054B1EE /* LaunchScreen.storyboard */,
+				4923FD491FCEF46E0054B1EE /* Assets.xcassets */,
 				4923FD241FCDE24F0054B1EE /* Info.plist */,
 			);
 			path = MemoTest;
@@ -120,7 +126,10 @@
 		4923FD311FCDE79E0054B1EE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4923FD471FCEE8800054B1EE /* FieldsValidator.swift */,
 				4923FD321FCDE7B90054B1EE /* UIColor+String.swift */,
+				4923FD431FCEE6990054B1EE /* UIAlertController+Helpers.swift */,
+				4923FD451FCEE72B0054B1EE /* UIViewController+Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -211,7 +220,7 @@
 			files = (
 				4923FD351FCDE8610054B1EE /* Auth.storyboard in Resources */,
 				4923FD231FCDE24F0054B1EE /* LaunchScreen.storyboard in Resources */,
-				4923FD201FCDE24F0054B1EE /* Assets.xcassets in Resources */,
+				4923FD4A1FCEF46F0054B1EE /* Assets.xcassets in Resources */,
 				4923FD1B1FCDE24F0054B1EE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,15 +234,18 @@
 			files = (
 				4923FD1E1FCDE24F0054B1EE /* MemoTest.xcdatamodeld in Sources */,
 				4923FD421FCE217B0054B1EE /* RecordsCell.swift in Sources */,
+				4923FD441FCEE6990054B1EE /* UIAlertController+Helpers.swift in Sources */,
 				4923FD181FCDE24F0054B1EE /* RecordsViewController.swift in Sources */,
 				4923FD331FCDE7B90054B1EE /* UIColor+String.swift in Sources */,
 				4923FD301FCDE7970054B1EE /* NavigationController.swift in Sources */,
 				4923FD371FCDE8820054B1EE /* PermissionViewController.swift in Sources */,
 				4923FD161FCDE24F0054B1EE /* AppDelegate.swift in Sources */,
 				4923FD401FCE1BAB0054B1EE /* StorageDataSource.swift in Sources */,
+				4923FD481FCEE8800054B1EE /* FieldsValidator.swift in Sources */,
 				4923FD2D1FCDE6920054B1EE /* Auth.swift in Sources */,
 				4923FD3D1FCE059A0054B1EE /* Player.swift in Sources */,
 				4923FD3A1FCDF4FF0054B1EE /* Recorder.swift in Sources */,
+				4923FD461FCEE72B0054B1EE /* UIViewController+Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

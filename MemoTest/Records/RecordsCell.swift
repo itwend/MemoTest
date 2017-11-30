@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol RecordsCellDelegate {
+    func playSound(sender: UIButton)
+    func removeSound(sender: UIButton)
+}
+
 class RecordsCell: UITableViewCell {
 
     @IBOutlet weak var soundView: UIView!
@@ -16,21 +21,30 @@ class RecordsCell: UITableViewCell {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var playSoundButton: UIButton!
     
+    var indexPath: IndexPath?
+    var delegateCell: RecordsCellDelegate?
+
+    var isPlaying: Bool = false {
+        didSet {
+            if !isPlaying {
+                playSoundButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            } else {
+                playSoundButton.setImage(#imageLiteral(resourceName: "stop"), for: .normal)
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         soundView.layer.cornerRadius = 10
-        // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBAction func playSoundButtonTouchUp(_ sender: UIButton) {
+        delegateCell?.playSound(sender: sender)
     }
-    @IBAction func playSoundButtonTouchUp(_ sender: Any) {
-        
-    }
-    @IBAction func deleteSoundButtonTouchUp(_ sender: Any) {
+    
+    @IBAction func deleteSoundButtonTouchUp(_ sender: UIButton) {
+        delegateCell?.removeSound(sender: sender)
     }
     
 }

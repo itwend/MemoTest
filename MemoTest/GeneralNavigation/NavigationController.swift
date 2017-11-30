@@ -19,10 +19,11 @@ class NavigationController: UINavigationController {
 extension UINavigationController {
     
     func setupNavigationBar() {
-        navigationBar.tintColor = UIColor.rgbStringToUIColor("0 0 0")
-        navigationBar.barTintColor = UIColor.rgbStringToUIColor("255 255 255")
-        navigationBar.isTranslucent = false
-        let font = UIFont(name: "Avenir-Light-Bold", size: 18.0) ?? UIFont.systemFont(ofSize: 18.0)
-        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.rgbStringToUIColor("0 0 0"), NSAttributedStringKey.backgroundColor:UIColor.init(white: 1, alpha: 0.9), NSAttributedStringKey.font: font]
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = true
+        view.backgroundColor = UIColor.clear
+        let font = UIFont(name: "Avenir-Light-Bold", size: 18.0) ?? UIFont.systemFont(ofSize: 25.0)
+        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.rgbStringToUIColor("240 240 240"), NSAttributedStringKey.backgroundColor:UIColor.clear, NSAttributedStringKey.font: font]
     }
 }

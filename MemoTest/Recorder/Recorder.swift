@@ -9,16 +9,22 @@
 import Foundation
 import AVFoundation
 
+protocol RecorderDelegate {
+    func didFinishRecording()
+}
+
 open class Recorder: NSObject {
     
     @objc public enum StateRecorder: Int {
-        case stopped, record
+        case stop, record
     }
     
-    open fileprivate(set) var state: StateRecorder = .stopped
+    var delegate: RecorderDelegate?
+    var state: StateRecorder = .stop
     fileprivate let session = AVAudioSession.sharedInstance()
     var recorder: AVAudioRecorder?
-    
+    open fileprivate(set) var recordUrl: URL
+    var recordId: String?
     open var bitRate = 192000
     open var sampleRate = 44100.0
     open var channels = 1
@@ -27,8 +33,9 @@ open class Recorder: NSObject {
         return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     }
     
-    public var url: URL {
-        return URL(fileURLWithPath: Recorder.directory).appendingPathComponent("recording.m4a")
+    public init(to: String) {
+        recordUrl = URL(fileURLWithPath: Recorder.directory).appendingPathComponent(to)
+        super.init()
     }
     
     open func prepareRecorder() throws {
@@ -39,7 +46,7 @@ open class Recorder: NSObject {
             AVNumberOfChannelsKey: channels as AnyObject,
             AVSampleRateKey: sampleRate as AnyObject
         ]
-        recorder = try AVAudioRecorder(url: url, settings: settings)
+        recorder = try AVAudioRecorder(url: recordUrl, settings: settings)
         recorder?.prepareToRecord()
     }
     
@@ -57,21 +64,11 @@ open class Recorder: NSObject {
         switch state {
         case .record:
             recorder?.stop()
-            
-            do {
-                let data = try Data(contentsOf: url)
-                StorageDataSource.shared.saveSound(date: Date(), data: data, name: "Best Sound - Ever Never" , duration: Date())
-                recorder = nil
-
-            } catch {
-                print("Unable to load data: \(error)")
-            }
-            
-            
-            
+            recorder = nil
+            delegate?.didFinishRecording()
         default:
             break
         }
-        state = .stopped
+        state = .stop
     }
 }

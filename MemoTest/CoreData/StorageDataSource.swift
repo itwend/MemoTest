@@ -14,20 +14,18 @@ class StorageDataSource: NSObject {
     
     static let shared = StorageDataSource()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var sounds: [Sound] = []
 
-    func saveSound(date: Date, data: Data, name: String, duration: Date) {
+    func saveSound(date: Date, name: String, duration: Date, id: String) {
         let sound = Sound(context: context)
         sound.date = date
-        sound.data = data
         sound.duration = duration
         sound.name = name
+        sound.id = id
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
     
-    func removeSound(indexPath: IndexPath) {
-        let route = sounds[indexPath.row]
-        context.delete(route)
+    func removeSound(_ sound: Sound) {
+        context.delete(sound)
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
 

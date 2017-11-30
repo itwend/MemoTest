@@ -30,12 +30,12 @@ open class Player: NSObject {
     }
     
     func play() {
-        if audioPlayer.isPlaying {
-            audioPlayer.pause()
-        } else {
+//        if audioPlayer.isPlaying {
+//            audioPlayer.pause()
+//        } else {
             setupSession()
             audioPlayer.play()
-        }
+        //}
     }
     
     func stop() {

@@ -8,38 +8,65 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 class RecordsViewController: UIViewController {
     
     @IBOutlet weak var recordView: UIView!
-    @IBOutlet weak var startRecordButton: UIButton!
-    @IBOutlet weak var stopRecordButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
     var managedObjectContext: NSManagedObjectContext? = AppDelegate.instance.persistentContainer.viewContext
-
+    let fileManager = FileManager.default
+    var audioPlayer: AVAudioPlayer?
     var recorder: Recorder!
-    var player: Player!
+    var tempIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Memos"
         recordView.layer.cornerRadius = 10
-        createRecorder()
         setupTableViewStyle()
-        
-        print("url = \(recorder.url)")
-        
+        recorder = Recorder(to: "")
+        recorder.state = .stop
     }
     
-    func setupTableViewStyle() {
-        tableView.tableFooterView = UIView()
-        tableView.backgroundColor = .clear
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+    //MARK:- Actions
+    
+    @IBAction func recordButtonTouchUp(_ sender: Any) {
+        switch recorder.state {
+        case .record:
+            stopRecord()
+        case .stop:
+            startRecord()
+        }
+    }
+    
+    //MARK:- Recorder
+    
+    func startRecord() {
+        tableView.isUserInteractionEnabled = false
+        createRecorder()
+        do {
+            try recorder.record()
+            showRecordImage(true)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func stopRecord() {
+        tableView.isUserInteractionEnabled = true
+        recorder.stop()
+        showRecordImage(false)
     }
     
     func createRecorder() {
-        recorder = Recorder()
+        let uuid = UUID().uuidString + ".m4a"
+        print("generate = \(uuid)")
+        recorder = Recorder(to: uuid)
+        recorder.recordId = uuid
+        recorder.delegate = self
         DispatchQueue.global().async {
             do {
                 try self.recorder.prepareRecorder()
@@ -49,24 +76,20 @@ class RecordsViewController: UIViewController {
         }
     }
     
-    @IBAction func startRecordButtonTouchUp(_ sender: Any) {
-        do {
-            try recorder.record()
-        } catch {
-            print(error)
+    //MARK:- UI
+    
+    func showRecordImage(_ show: Bool) {
+        if show {
+            recordButton.setImage(#imageLiteral(resourceName: "stopRecord"), for: .normal)
+        } else {
+            recordButton.setImage(#imageLiteral(resourceName: "record"), for: .normal)
         }
     }
     
-    @IBAction func stopRecordButtonTouchUp(_ sender: Any) {
-        recorder.stop()
-    }
-
-    @IBAction func playAudioButtonTouchUp(_ sender: Any) {
-        
-        player = Player.init(url: recorder.url)
-        print("url = \(recorder.url)")
-
-        player.play()
+    func setupTableViewStyle() {
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     }
     
     // MARK: - Fetched results controller
@@ -95,6 +118,71 @@ class RecordsViewController: UIViewController {
     
     var _fetchedResultsController: NSFetchedResultsController<Sound>? = nil
     
+    //MARK:- Documents
+    
+    func documentsDirectory() -> String {
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        guard let dirPath = paths.first else {
+            return ""
+        }
+        return "\(dirPath)/"
+    }
+    
+    func removeFileFromDirectory(_ id: String ,completion: (() -> Void)?) {
+        let filePath = documentsDirectory() + id
+        do {
+            try fileManager.removeItem(atPath: filePath)
+            completion?()
+        } catch let error as NSError {
+            print(error.debugDescription)
+        }
+    }
+    
+    //MARk:- Player
+    
+    func startPlay(_ sender: UIButton) {
+        let sound = selectedSound(sender)
+        if let soundId = sound.id {
+            let filePath = documentsDirectory() + soundId
+            if let url = URL.init(string: filePath) {
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: url)
+                    audioPlayer?.delegate = self
+                    audioPlayer?.play()
+                    recordView.isUserInteractionEnabled = false
+                } catch {
+                    print("couldn't load file")
+                }
+            }
+        }
+    }
+    
+    func stopPlay() {
+        audioPlayer?.stop()
+        tempIndexPath = nil
+        tableView.reloadData()
+        recordView.isUserInteractionEnabled = true
+    }
+    
+    func selectedSound(_ sender: UIButton) -> Sound {
+        let indexPath = selectedIndexPath(sender)
+        let sound = fetchedResultsController.object(at: indexPath)
+        return sound
+    }
+    
+    func selectedIndexPath(_ sender: UIButton) -> IndexPath {
+        let buttonPosition: CGPoint = sender.convert(.zero, to: tableView)
+        let indexPath = tableView.indexPathForRow(at: buttonPosition)
+        return indexPath!
+    }
+    
+    func selectedCell(indexPath: IndexPath) -> RecordsCell {
+        let cell = self.tableView.cellForRow(at: indexPath) as! RecordsCell
+        return cell
+    }
+
 }
 
 extension RecordsViewController: UITableViewDelegate , UITableViewDataSource {
@@ -106,25 +194,17 @@ extension RecordsViewController: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecordsCell", for: indexPath) as! RecordsCell
-//        cell.delegate = self
-//        cell.delegateCell = self
-//        cell.selectionStyle = .none
-//        cell.indexPath = indexPath
         cell.selectionStyle = .none
+        cell.delegateCell = self
         let sound = fetchedResultsController.object(at: indexPath)
         cell.dateLabel.text? = "\(String(describing: sound.date))"
         cell.durationLabel.text? = "\(String(describing: sound.duration))"
         cell.nameLabel.text = sound.name
-        
-//        cell.mergeButton.addTarget(self, action: #selector(showMergeView(sender:)), for: .touchUpInside)
-//        //cell.mergeButton.isHidden = route.merge
-//        if route.merge {
-//            cell.mergeButton.isHidden = false
-//        } else {
-//            cell.mergeButton.isHidden = true
-//        }
-//
-//        DrivesHelper.configureCell(cell, indexPath: indexPath, tableView: self.tableView, withRoute: route)
+        if tempIndexPath == indexPath {
+            cell.isPlaying = true
+        } else {
+            cell.isPlaying = false
+        }
         return cell
     }
     
@@ -143,14 +223,8 @@ extension RecordsViewController: NSFetchedResultsControllerDelegate {
         switch type {
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .top)
-
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .bottom)
-
-        case .update:
-            print("update")
-//            guard let cell: DrivesCell = tableView.cellForRow(at: indexPath!) as? DrivesCell else { return }
-//            DrivesHelper.configureCell(cell, indexPath: indexPath!, tableView: self.tableView, withRoute: anObject as! Route)
         default:
             break
         }
@@ -158,5 +232,54 @@ extension RecordsViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+    }
+}
+
+extension RecordsViewController: RecordsCellDelegate {
+    
+    func playSound(sender: UIButton) {
+        let indexPath = selectedIndexPath(sender)
+        let cell = selectedCell(indexPath: indexPath)
+        if (cell.isPlaying) {
+            stopPlay()
+            cell.isPlaying = false
+        } else {
+            startPlay(sender)
+            cell.isPlaying = true
+            tempIndexPath = selectedIndexPath(sender)
+            tableView.reloadData()
+        }
+    }
+    
+    func removeSound(sender: UIButton) {
+        UIAlertController.showSimple(self, title: "Delete Recording", message: "Are you sure you want to this record?", firstButtonTitle: "Cancel", firstButtonAction: {
+            
+        }, secondButtonTitle: "Delete") {
+            let sound = self.selectedSound(sender)
+            if let id = sound.id {
+                self.removeFileFromDirectory(id, completion: {
+                    StorageDataSource.shared.removeSound(sound)
+                    if self.tempIndexPath != nil {
+                        self.stopPlay()
+                    }
+                })
+            }
+        }
+    }
+}
+
+extension RecordsViewController: RecorderDelegate {
+    
+    func didFinishRecording() {
+        StorageDataSource.shared.saveSound(date: Date(), name: "Best Sound - Ever Never" , duration: Date(), id: recorder.recordId!)
+    }
+}
+
+extension RecordsViewController: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        tempIndexPath = nil
+        tableView.reloadData()
+        recordView.isUserInteractionEnabled = true
     }
 }

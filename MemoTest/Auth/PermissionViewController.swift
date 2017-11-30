@@ -15,8 +15,7 @@ class PermissionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Microphone"
-        self.permissionMicButton.layer.cornerRadius = 4
+        self.permissionMicButton.layer.cornerRadius = 6
     }
 
     @IBAction func permissionMicButtonTouchUp(_ sender: Any) {
@@ -24,7 +23,9 @@ class PermissionViewController: UIViewController {
             [unowned self] allowed in
             
             if allowed {
-                self.changeRootViewController()
+                DispatchQueue.main.async {
+                    self.changeRootViewController()
+                }
             } else {
                 
             }
