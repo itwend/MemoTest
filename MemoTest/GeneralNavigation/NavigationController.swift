@@ -14,9 +14,6 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
         setupNavigationBar()
     }
-}
-
-extension UINavigationController {
     
     func setupNavigationBar() {
         navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)

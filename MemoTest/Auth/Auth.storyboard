@@ -46,11 +46,20 @@
                                 <color key="textColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" translatesAutoresizingMaskIntoConstraints="NO" id="Hzh-5Q-2Ki">
+                                <rect key="frame" x="117" y="95" width="140" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Zw6-Oj-Tih"/>
+                                    <constraint firstAttribute="width" constant="140" id="i0d-lg-Zcy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HuL-Dk-bHc" firstAttribute="trailing" secondItem="x7U-ea-x6z" secondAttribute="trailing" constant="22" id="3Me-77-wd0"/>
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="bottom" secondItem="HuL-Dk-bHc" secondAttribute="bottom" id="9nE-nr-9Qj"/>
+                            <constraint firstItem="cJb-9L-cLB" firstAttribute="top" secondItem="Hzh-5Q-2Ki" secondAttribute="bottom" constant="58" id="B0P-C9-0TR"/>
+                            <constraint firstItem="Hzh-5Q-2Ki" firstAttribute="centerX" secondItem="oG5-8e-bMn" secondAttribute="centerX" id="DXe-zB-xg4"/>
                             <constraint firstItem="x7U-ea-x6z" firstAttribute="leading" secondItem="HuL-Dk-bHc" secondAttribute="leading" constant="21" id="e35-GU-2LG"/>
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="top" secondItem="Y2X-dz-HOr" secondAttribute="top" id="fwA-wF-szw"/>
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="leading" secondItem="HuL-Dk-bHc" secondAttribute="leading" id="hmI-rI-xZm"/>
@@ -72,5 +81,6 @@
     </scenes>
     <resources>
         <image name="background2" width="375" height="666"/>
+        <image name="mic" width="253" height="240"/>
     </resources>
 </document>

@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var auth = Auth()
     var window: UIWindow?
+    static let persistentName = "MemoTest"
     static var instance = UIApplication.shared.delegate as! AppDelegate
     var microphonePermssonCallBack : ((_ allowed: Bool) -> Void)?
     
@@ -79,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "MemoTest")
+        let container = NSPersistentContainer(name: AppDelegate.persistentName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

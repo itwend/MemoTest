@@ -8,24 +8,21 @@
 
 import Foundation
 
-let firstLaunch = "firstLaunch"
-
 class Auth {
     
     let defaults = UserDefaults.standard
-    
+    static let firstLaunch = "firstLaunch"
+
     var isFirstLaunch: Bool {
         set {
-            defaults.set(newValue, forKey: firstLaunch)
+            defaults.set(newValue, forKey: Auth.firstLaunch)
             defaults.synchronize()
         }
         get {
-            if let _ =  defaults.value(forKey: firstLaunch) {
-                return defaults.value(forKey: firstLaunch) as! Bool
-            }
-            return false
+            return defaults.bool(forKey: Auth.firstLaunch)
         }
     }
+    
 }
 
 

@@ -71,4 +71,5 @@ open class Recorder: NSObject {
         }
         state = .stop
     }
+    
 }

@@ -45,4 +45,5 @@ extension UIColor {
         let newString = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines as CharacterSet)
         return CGFloat((newString as NSString).floatValue)
     }
+    
 }

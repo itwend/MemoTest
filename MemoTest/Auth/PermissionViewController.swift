@@ -20,7 +20,6 @@ class PermissionViewController: UIViewController {
     }
 
     @IBAction func permissionMicButtonTouchUp(_ sender: Any) {
-        
         appDelegate.checkMicrophonePermission { () in
             DispatchQueue.main.async {
                 self.appDelegate.auth.isFirstLaunch = true
@@ -28,4 +27,5 @@ class PermissionViewController: UIViewController {
             }
         }
     }
+    
 }

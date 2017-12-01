@@ -15,13 +15,14 @@ enum AlertControllerTextFieldType: Int {
 
 extension UIAlertController {
     
-    class func showSimple(_ target: AnyObject?, title: String?, message: String?) {
+    class func showSimple (_ target: UIViewController?, title: String?, message: String, buttonAction:(() -> Void)?) {
         let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
         alert.view.tintColor  = UIColor.rgbStringToUIColor("1 142 129")
         alert.addAction(UIAlertAction(title:"OK", style: .default, handler:{
             action in
+            buttonAction?()
         }))
-        if let viewController = target as? UIViewController {
+        if let viewController = target {
             viewController.present(alert, animated:true, completion:nil)
         }
         else {
@@ -31,7 +32,7 @@ extension UIAlertController {
         }
     }
     
-    class func showSimple(_ target:AnyObject?, title:String?, message:String, firstButtonTitle:String, firstButtonAction: (() -> Void)?, secondButtonTitle:String, secondButtonAction:(() -> Void)?) {
+    class func showSimple(_ target: UIViewController?, title: String?, message: String, firstButtonTitle: String, firstButtonAction: (() -> Void)?, secondButtonTitle: String, secondButtonAction:(() -> Void)?) {
         let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
         alert.view.tintColor  = UIColor.rgbStringToUIColor("1 142 129")
         alert.addAction(UIAlertAction(title:firstButtonTitle, style: .default, handler:{
@@ -42,7 +43,7 @@ extension UIAlertController {
             action in
             secondButtonAction?()
         }))
-        if let viewController = target as? UIViewController {
+        if let viewController = target {
             viewController.present(alert, animated:true, completion:nil)
         }
         else {
@@ -52,7 +53,7 @@ extension UIAlertController {
         }
     }
     
-    class func showWithTextField(_ text: String, placeholder: String?, keyboardType: UIKeyboardType?, target:AnyObject?, title:String?, submitButtonTitle:String, submitButtonAction: ((_ value: String?) -> Void)?, deleteButtonAction:(() -> Void)? ) {
+    class func showWithTextField(_ text: String, placeholder: String?, keyboardType: UIKeyboardType?, target: UIViewController?, title: String?, submitButtonTitle: String, submitButtonAction: ((_ value: String?) -> Void)?, deleteButtonAction:(() -> Void)? ) {
         
         let alert = UIAlertController(title:title, message:"", preferredStyle: .alert)
         alert.view.tintColor  = UIColor.rgbStringToUIColor("1 142 129")
@@ -80,7 +81,7 @@ extension UIAlertController {
         }))
         alert.addAction(submitAction)
         
-        if let viewController = target as? UIViewController {
+        if let viewController = target {
             viewController.present(alert, animated:true, completion:nil)
         }
         else {
@@ -103,4 +104,5 @@ extension UIAlertController {
             }
         }
     }
+    
 }

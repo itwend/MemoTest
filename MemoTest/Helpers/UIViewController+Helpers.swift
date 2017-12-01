@@ -9,6 +9,7 @@
 import UIKit
 
 public extension UIViewController {
+    
     public var isVisible: Bool {
         if isViewLoaded {
             return view.window != nil
@@ -47,4 +48,5 @@ public extension UIViewController {
         }
         return nil
     }
+    
 }

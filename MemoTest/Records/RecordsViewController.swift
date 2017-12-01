@@ -21,23 +21,29 @@ class RecordsViewController: UIViewController {
     var audioPlayer: AVAudioPlayer?
     var recorder: Recorder!
     var tempIndexPath: IndexPath?
-    
+    let appDelegate = AppDelegate.instance
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Memos"
         recordView.layer.cornerRadius = 10
         setupTableViewStyle()
+        setupAudioSession()
         recorder = Recorder(to: "")
         recorder.state = .stop
-        
-        AppDelegate.instance.microphonePermssonCallBack = { [unowned self] allowed in
-            UIAlertController.showSimple(self, title: "Enable Microphone Access", message: "Memos cannot record your voice without Microphone Permission. Go to your device Settings and then Privacy to grant permission.")
+        appDelegate.microphonePermssonCallBack = { [unowned self] allowed in
+            UIAlertController.showSimple(self, title: "Microphone Access", message: "Memos cannot record your voice without Microphone Permission. Go to your device Settings and then Privacy to grant permission.") {
+                let settingUrl = URL(string:String(format:"%@BundleID",UIApplicationOpenSettingsURLString))
+                if UIApplication.shared.canOpenURL(settingUrl!) {
+                    UIApplication.shared.open(settingUrl!, completionHandler: nil)
+                }
+            }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AppDelegate.instance.checkMicrophonePermission(completion: nil)
+        appDelegate.checkMicrophonePermission(completion: nil)
     }
     
     //MARK:- Actions
@@ -72,7 +78,6 @@ class RecordsViewController: UIViewController {
     
     func createRecorder() {
         let uuid = UUID().uuidString + ".m4a"
-        print("generate = \(uuid)")
         recorder = Recorder(to: uuid)
         recorder.recordId = uuid
         recorder.delegate = self
@@ -151,6 +156,17 @@ class RecordsViewController: UIViewController {
     
     //MARk:- Player
     
+    func setupAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .mixWithOthers)
+            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+            try audioSession.setActive(true)
+        } catch {
+            print("couldn't setup category \(error)")
+        }
+    }
+    
     func startPlay(_ sender: UIButton) {
         let sound = selectedSound(sender)
         if let soundId = sound.id {
@@ -191,6 +207,11 @@ class RecordsViewController: UIViewController {
         let cell = self.tableView.cellForRow(at: indexPath) as! RecordsCell
         return cell
     }
+    
+    func audioDuration(for resource: URL) -> Double {
+        let asset = AVURLAsset(url: resource)
+        return Double(CMTimeGetSeconds(asset.duration))
+    }
 
 }
 
@@ -206,8 +227,8 @@ extension RecordsViewController: UITableViewDelegate , UITableViewDataSource {
         cell.selectionStyle = .none
         cell.delegateCell = self
         let sound = fetchedResultsController.object(at: indexPath)
-        cell.dateLabel.text? = Date.dateWithDayMonthYear(date: sound.date!)
-        cell.durationLabel.text? = Date.dateWithTime24(date: sound.duration!)
+        cell.dateLabel.text? = Date.dateWithDayMonthYearTime(date: sound.date!)
+        cell.durationLabel.text? = sound.duration!
         cell.nameLabel.text = sound.name
         if tempIndexPath == indexPath {
             cell.isPlaying = true
@@ -262,7 +283,6 @@ extension RecordsViewController: RecordsCellDelegate {
     
     func removeSound(sender: UIButton) {
         UIAlertController.showSimple(self, title: "Delete Recording", message: "Are you sure you want to this record?", firstButtonTitle: "Cancel", firstButtonAction: {
-            
         }, secondButtonTitle: "Delete") {
             let sound = self.selectedSound(sender)
             if let id = sound.id {
@@ -281,7 +301,12 @@ extension RecordsViewController: RecorderDelegate {
     
     func didFinishRecording() {
         UIAlertController.showWithTextField("", placeholder: "Enter record name", keyboardType: .default, target: self, title: "Save audio record", submitButtonTitle: "Save", submitButtonAction: { (text) in
-            StorageDataSource.shared.saveSound(date: Date(), name: text! , duration: Date(), id: self.recorder.recordId!)
+            let newRecord = Record()
+            newRecord.id = self.recorder.recordId!
+            newRecord.name = text!
+            newRecord.duration = String(format: "%.0fs",self.audioDuration(for: self.recorder.recordUrl))
+            newRecord.date = Date()
+            StorageDataSource.shared.saveSound(record: newRecord)
         }) {
             self.removeFileFromDirectory(self.recorder.recordId!, completion: nil)
         }
