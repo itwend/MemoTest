@@ -29,6 +29,15 @@ class RecordsViewController: UIViewController {
         setupTableViewStyle()
         recorder = Recorder(to: "")
         recorder.state = .stop
+        
+        AppDelegate.instance.microphonePermssonCallBack = { [unowned self] allowed in
+            UIAlertController.showSimple(self, title: "Enable Microphone Access", message: "Memos cannot record your voice without Microphone Permission. Go to your device Settings and then Privacy to grant permission.")
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        AppDelegate.instance.checkMicrophonePermission(completion: nil)
     }
     
     //MARK:- Actions
@@ -197,8 +206,8 @@ extension RecordsViewController: UITableViewDelegate , UITableViewDataSource {
         cell.selectionStyle = .none
         cell.delegateCell = self
         let sound = fetchedResultsController.object(at: indexPath)
-        cell.dateLabel.text? = "\(String(describing: sound.date))"
-        cell.durationLabel.text? = "\(String(describing: sound.duration))"
+        cell.dateLabel.text? = Date.dateWithDayMonthYear(date: sound.date!)
+        cell.durationLabel.text? = Date.dateWithTime24(date: sound.duration!)
         cell.nameLabel.text = sound.name
         if tempIndexPath == indexPath {
             cell.isPlaying = true
@@ -271,7 +280,11 @@ extension RecordsViewController: RecordsCellDelegate {
 extension RecordsViewController: RecorderDelegate {
     
     func didFinishRecording() {
-        StorageDataSource.shared.saveSound(date: Date(), name: "Best Sound - Ever Never" , duration: Date(), id: recorder.recordId!)
+        UIAlertController.showWithTextField("", placeholder: "Enter record name", keyboardType: .default, target: self, title: "Save audio record", submitButtonTitle: "Save", submitButtonAction: { (text) in
+            StorageDataSource.shared.saveSound(date: Date(), name: text! , duration: Date(), id: self.recorder.recordId!)
+        }) {
+            self.removeFileFromDirectory(self.recorder.recordId!, completion: nil)
+        }
     }
 }
 

@@ -126,9 +126,9 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sound name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJj-5F-Rfv">
-                                                    <rect key="frame" x="79" y="16" width="231" height="19"/>
+                                                    <rect key="frame" x="79" y="11" width="231" height="23"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="19" id="uK5-Qt-Ie3"/>
+                                                        <constraint firstAttribute="height" constant="23" id="uK5-Qt-Ie3"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="19"/>
                                                     <color key="textColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
@@ -142,8 +142,8 @@
                                                 <constraint firstAttribute="bottom" secondItem="kpR-go-bZ6" secondAttribute="bottom" constant="5" id="TqT-bY-OGi"/>
                                                 <constraint firstItem="Z11-UG-5OW" firstAttribute="leading" secondItem="kVP-4T-CHn" secondAttribute="trailing" constant="17" id="YbI-xt-EEO"/>
                                                 <constraint firstAttribute="trailing" secondItem="zJj-5F-Rfv" secondAttribute="trailing" constant="65" id="bhi-zq-xjA"/>
-                                                <constraint firstItem="Z11-UG-5OW" firstAttribute="top" secondItem="zJj-5F-Rfv" secondAttribute="bottom" constant="3" id="fXx-uU-5Wv"/>
-                                                <constraint firstItem="zJj-5F-Rfv" firstAttribute="top" secondItem="i2w-3d-qJO" secondAttribute="top" constant="16" id="hKb-ll-qES"/>
+                                                <constraint firstItem="Z11-UG-5OW" firstAttribute="top" secondItem="zJj-5F-Rfv" secondAttribute="bottom" constant="4" id="fXx-uU-5Wv"/>
+                                                <constraint firstItem="zJj-5F-Rfv" firstAttribute="top" secondItem="i2w-3d-qJO" secondAttribute="top" constant="11" id="hKb-ll-qES"/>
                                                 <constraint firstItem="zjt-Xo-6pG" firstAttribute="top" secondItem="Z11-UG-5OW" secondAttribute="bottom" constant="4" id="jGB-uO-hu9"/>
                                                 <constraint firstAttribute="trailing" secondItem="Z11-UG-5OW" secondAttribute="trailing" constant="65" id="puv-b9-Ebn"/>
                                                 <constraint firstItem="zJj-5F-Rfv" firstAttribute="leading" secondItem="kVP-4T-CHn" secondAttribute="trailing" constant="17" id="snJ-oB-aXM"/>

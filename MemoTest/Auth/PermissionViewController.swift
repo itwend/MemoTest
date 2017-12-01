@@ -12,6 +12,7 @@ import AVFoundation
 class PermissionViewController: UIViewController {
 
     @IBOutlet weak var permissionMicButton: UIButton!
+    let appDelegate = AppDelegate.instance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,22 +20,12 @@ class PermissionViewController: UIViewController {
     }
 
     @IBAction func permissionMicButtonTouchUp(_ sender: Any) {
-        AVAudioSession.sharedInstance().requestRecordPermission () {
-            [unowned self] allowed in
-            
-            if allowed {
-                DispatchQueue.main.async {
-                    self.changeRootViewController()
-                }
-            } else {
-                
+        
+        appDelegate.checkMicrophonePermission { () in
+            DispatchQueue.main.async {
+                self.appDelegate.auth.isFirstLaunch = true
+                self.appDelegate.changeRootViewController()
             }
         }
     }
-    
-    func changeRootViewController() {
-        AppDelegate.instance.auth.isPermissionMic = true
-        AppDelegate.instance.changeRootViewController()
-    }
-
 }

@@ -30,12 +30,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Continue">
-                                    <color key="titleColor" red="0.1764705882352941" green="0.54801751429738554" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.0039215686274509803" green="0.55686274509803924" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="permissionMicButtonTouchUp:" destination="xic-lG-GHz" eventType="touchUpInside" id="YiD-BZ-VBa"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memos require access to your microphone. Please allow permission for create records." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJb-9L-cLB">
+                                <rect key="frame" x="55" y="273" width="264" height="121"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="121" id="EkP-zV-H5j"/>
+                                    <constraint firstAttribute="width" constant="264" id="tXe-vb-X0Z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -45,6 +55,8 @@
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="top" secondItem="Y2X-dz-HOr" secondAttribute="top" id="fwA-wF-szw"/>
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="leading" secondItem="HuL-Dk-bHc" secondAttribute="leading" id="hmI-rI-xZm"/>
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="trailing" secondItem="HuL-Dk-bHc" secondAttribute="trailing" id="jhN-Wf-oxk"/>
+                            <constraint firstItem="cJb-9L-cLB" firstAttribute="centerX" secondItem="oG5-8e-bMn" secondAttribute="centerX" id="pH3-a6-7Li"/>
+                            <constraint firstItem="cJb-9L-cLB" firstAttribute="centerY" secondItem="oG5-8e-bMn" secondAttribute="centerY" id="wZL-gv-3m9"/>
                             <constraint firstItem="HuL-Dk-bHc" firstAttribute="bottom" secondItem="x7U-ea-x6z" secondAttribute="bottom" constant="40" id="zld-E2-8d7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HuL-Dk-bHc"/>

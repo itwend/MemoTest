@@ -17,7 +17,7 @@ extension UIAlertController {
     
     class func showSimple(_ target: AnyObject?, title: String?, message: String?) {
         let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
-        alert.view.tintColor  = UIColor.rgbStringToUIColor("128 0 0")
+        alert.view.tintColor  = UIColor.rgbStringToUIColor("1 142 129")
         alert.addAction(UIAlertAction(title:"OK", style: .default, handler:{
             action in
         }))
@@ -31,54 +31,9 @@ extension UIAlertController {
         }
     }
     
-//    class func showSimpleOn(vc: UIViewController,_ target: AnyObject?, title: String?, message: String?) {
-//
-//        let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
-//        alert.view.tintColor  = UIColor.rgbStringToUIColor("128 0 0")
-//        alert.addAction(UIAlertAction(title:"OK", style: .default, handler:{
-//            action in
-//        }))
-//        vc.present(alert, animated:true, completion:nil)
-//    }
-    
-    class func showSimpleWithAutodismiss(_ target: AnyObject?, title: String?, message: String?) {
+    class func showSimple(_ target:AnyObject?, title:String?, message:String, firstButtonTitle:String, firstButtonAction: (() -> Void)?, secondButtonTitle:String, secondButtonAction:(() -> Void)?) {
         let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
-        alert.view.tintColor  = UIColor.rgbStringToUIColor("128 0 0")
-        let delay = 1 * Double(NSEC_PER_SEC)
-        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.asyncAfter(deadline: time) { () -> Void in
-            alert.dismiss(animated: true, completion: nil)
-        }
-        if let viewController = target as? UIViewController {
-            viewController.present(alert, animated:true, completion:nil)
-        }
-        else {
-            if let viewController = UIViewController.getVisibleViewController(nil) {
-                viewController.present(alert, animated:true, completion:nil)
-            }
-        }
-    }
-    
-    class func showSimple (_ target:AnyObject?, title:String?, message:String, buttonAction:(() -> Void)?) {
-        let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
-        alert.view.tintColor  = UIColor.rgbStringToUIColor("128 0 0")
-        alert.addAction(UIAlertAction(title:"OK", style: .default, handler:{
-            action in
-            buttonAction?()
-        }))
-        if let viewController = target as? UIViewController {
-            viewController.present(alert, animated:true, completion:nil)
-        }
-        else {
-            if let viewController = UIViewController.getVisibleViewController(nil) {
-                viewController.present(alert, animated:true, completion:nil)
-            }
-        }
-    }
-    
-    class func showSimple (_ target:AnyObject?, title:String?, message:String, firstButtonTitle:String, firstButtonAction: (() -> Void)?, secondButtonTitle:String, secondButtonAction:(() -> Void)?) {
-        let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
-        alert.view.tintColor  = UIColor.rgbStringToUIColor("128 0 0")
+        alert.view.tintColor  = UIColor.rgbStringToUIColor("1 142 129")
         alert.addAction(UIAlertAction(title:firstButtonTitle, style: .default, handler:{
             action in
             firstButtonAction?()
@@ -97,14 +52,15 @@ extension UIAlertController {
         }
     }
     
-    class func showWithTextField(_ text: String, placeholder: String?, keyboardType: UIKeyboardType?, isSecureTextEntry: Bool, target:AnyObject?, title:String?, message:String, submitButtonTitle:String, submitButtonAction: ((_ value: String?) -> Void)? ) {
+    class func showWithTextField(_ text: String, placeholder: String?, keyboardType: UIKeyboardType?, target:AnyObject?, title:String?, submitButtonTitle:String, submitButtonAction: ((_ value: String?) -> Void)?, deleteButtonAction:(() -> Void)? ) {
         
-        let alert = UIAlertController(title:title, message:message, preferredStyle: .alert)
-        alert.view.tintColor  = UIColor.rgbStringToUIColor("128 0 0")
+        let alert = UIAlertController(title:title, message:"", preferredStyle: .alert)
+        alert.view.tintColor  = UIColor.rgbStringToUIColor("1 142 129")
+        
         alert.addTextField { ( textField) -> Void in
             textField.placeholder = placeholder ?? ""
             textField.autocorrectionType = .no
-            textField.isSecureTextEntry = isSecureTextEntry
+            textField.autocapitalizationType = .words
             textField.keyboardType = keyboardType ?? .default
             textField.keyboardAppearance = .dark
             textField.tag = textField.keyboardType == .default ? AlertControllerTextFieldType.sound.rawValue : AlertControllerTextFieldType.standart.rawValue
@@ -118,9 +74,11 @@ extension UIAlertController {
         })
         submitAction.isEnabled = text.count > 0
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title:"Delete", style: .default, handler:{
+            action in
+            deleteButtonAction?()
+        }))
         alert.addAction(submitAction)
-        
         
         if let viewController = target as? UIViewController {
             viewController.present(alert, animated:true, completion:nil)
@@ -145,5 +103,4 @@ extension UIAlertController {
             }
         }
     }
-    
 }

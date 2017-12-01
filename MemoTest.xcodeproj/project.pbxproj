@@ -25,6 +25,8 @@
 		4923FD461FCEE72B0054B1EE /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD451FCEE72B0054B1EE /* UIViewController+Helpers.swift */; };
 		4923FD481FCEE8800054B1EE /* FieldsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD471FCEE8800054B1EE /* FieldsValidator.swift */; };
 		4923FD4A1FCEF46F0054B1EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD491FCEF46E0054B1EE /* Assets.xcassets */; };
+		4923FD4C1FD0D3720054B1EE /* NSDate+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD4B1FD0D3710054B1EE /* NSDate+Utilities.swift */; };
+		4923FD511FD0E9A00054B1EE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD501FD0E99F0054B1EE /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		4923FD451FCEE72B0054B1EE /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		4923FD471FCEE8800054B1EE /* FieldsValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsValidator.swift; sourceTree = "<group>"; };
 		4923FD491FCEF46E0054B1EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4923FD4B1FD0D3710054B1EE /* NSDate+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+Utilities.swift"; sourceTree = "<group>"; };
+		4923FD501FD0E99F0054B1EE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				4923FD151FCDE24F0054B1EE /* AppDelegate.swift */,
+				4923FD4D1FD0E7BF0054B1EE /* Resource */,
 				4923FD311FCDE79E0054B1EE /* Helpers */,
 				4923FD3E1FCE1B890054B1EE /* CoreData */,
 				4923FD381FCDF4ED0054B1EE /* Recorder */,
@@ -88,8 +93,6 @@
 				4923FD2B1FCDE6890054B1EE /* Auth */,
 				4923FD2A1FCDE6730054B1EE /* Records */,
 				4923FD2E1FCDE77B0054B1EE /* GeneralNavigation */,
-				4923FD211FCDE24F0054B1EE /* LaunchScreen.storyboard */,
-				4923FD491FCEF46E0054B1EE /* Assets.xcassets */,
 				4923FD241FCDE24F0054B1EE /* Info.plist */,
 			);
 			path = MemoTest;
@@ -118,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				4923FD191FCDE24F0054B1EE /* Main.storyboard */,
+				4923FD211FCDE24F0054B1EE /* LaunchScreen.storyboard */,
 				4923FD2F1FCDE7970054B1EE /* NavigationController.swift */,
 			);
 			path = GeneralNavigation;
@@ -130,6 +134,7 @@
 				4923FD321FCDE7B90054B1EE /* UIColor+String.swift */,
 				4923FD431FCEE6990054B1EE /* UIAlertController+Helpers.swift */,
 				4923FD451FCEE72B0054B1EE /* UIViewController+Helpers.swift */,
+				4923FD4B1FD0D3710054B1EE /* NSDate+Utilities.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -157,6 +162,15 @@
 				4923FD1C1FCDE24F0054B1EE /* MemoTest.xcdatamodeld */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		4923FD4D1FD0E7BF0054B1EE /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				4923FD491FCEF46E0054B1EE /* Assets.xcassets */,
+				4923FD501FD0E99F0054B1EE /* icon.png */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4923FD351FCDE8610054B1EE /* Auth.storyboard in Resources */,
+				4923FD511FD0E9A00054B1EE /* icon.png in Resources */,
 				4923FD231FCDE24F0054B1EE /* LaunchScreen.storyboard in Resources */,
 				4923FD4A1FCEF46F0054B1EE /* Assets.xcassets in Resources */,
 				4923FD1B1FCDE24F0054B1EE /* Main.storyboard in Resources */,
@@ -238,6 +253,7 @@
 				4923FD181FCDE24F0054B1EE /* RecordsViewController.swift in Sources */,
 				4923FD331FCDE7B90054B1EE /* UIColor+String.swift in Sources */,
 				4923FD301FCDE7970054B1EE /* NavigationController.swift in Sources */,
+				4923FD4C1FD0D3720054B1EE /* NSDate+Utilities.swift in Sources */,
 				4923FD371FCDE8820054B1EE /* PermissionViewController.swift in Sources */,
 				4923FD161FCDE24F0054B1EE /* AppDelegate.swift in Sources */,
 				4923FD401FCE1BAB0054B1EE /* StorageDataSource.swift in Sources */,

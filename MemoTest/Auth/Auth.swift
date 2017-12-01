@@ -8,20 +8,20 @@
 
 import Foundation
 
-let permission = "permissionMicrophone"
+let firstLaunch = "firstLaunch"
 
 class Auth {
     
     let defaults = UserDefaults.standard
     
-    var isPermissionMic: Bool {
+    var isFirstLaunch: Bool {
         set {
-            defaults.set(newValue, forKey: permission)
+            defaults.set(newValue, forKey: firstLaunch)
             defaults.synchronize()
         }
         get {
-            if let _ =  defaults.value(forKey: permission) {
-                return defaults.value(forKey: permission) as! Bool
+            if let _ =  defaults.value(forKey: firstLaunch) {
+                return defaults.value(forKey: firstLaunch) as! Bool
             }
             return false
         }
