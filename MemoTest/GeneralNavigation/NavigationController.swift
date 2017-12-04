@@ -23,4 +23,5 @@ class NavigationController: UINavigationController {
         let font = UIFont(name: "Avenir-Light-Bold", size: 18.0) ?? UIFont.systemFont(ofSize: 25.0)
         navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.rgbStringToUIColor("240 240 240"), NSAttributedStringKey.backgroundColor:UIColor.clear, NSAttributedStringKey.font: font]
     }
+    
 }

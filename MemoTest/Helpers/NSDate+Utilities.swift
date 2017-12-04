@@ -13,7 +13,7 @@ extension Date {
     public static func dateWithDayMonthYearTime(date: Date) -> String {
         let dateFormatter1 = DateFormatter()
         dateFormatter1.dateStyle = .full
-        dateFormatter1.dateFormat = "dd MMM, EEEE, hh:mm"
+        dateFormatter1.dateFormat = "dd MMM, yyyy, HH:mm"
         let newDate = dateFormatter1.string(from: date )
         return newDate
     }

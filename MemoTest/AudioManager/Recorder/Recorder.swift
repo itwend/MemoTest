@@ -13,7 +13,7 @@ protocol RecorderDelegate {
     func didFinishRecording()
 }
 
-open class Recorder: NSObject {
+class Recorder: NSObject {
     
     @objc public enum StateRecorder: Int {
         case stop, record
@@ -21,10 +21,9 @@ open class Recorder: NSObject {
     
     var delegate: RecorderDelegate?
     var state: StateRecorder = .stop
-    fileprivate let session = AVAudioSession.sharedInstance()
-    var recorder: AVAudioRecorder?
-    open fileprivate(set) var recordUrl: URL
+    var avRecorder: AVAudioRecorder?
     var recordId: String?
+    var recordUrl: URL?
     open var bitRate = 192000
     open var sampleRate = 44100.0
     open var channels = 1
@@ -33,12 +32,13 @@ open class Recorder: NSObject {
         return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     }
     
-    public init(to: String) {
-        recordUrl = URL(fileURLWithPath: Recorder.directory).appendingPathComponent(to)
-        super.init()
+    init(state: StateRecorder) {
+        self.state = state
     }
     
-    open func prepareRecorder() throws {
+    open func record(to: String ) throws {
+        let url = URL(fileURLWithPath: Recorder.directory).appendingPathComponent(to)
+        self.recordUrl = url
         let settings: [String: AnyObject] = [
             AVFormatIDKey : NSNumber(value: Int32(kAudioFormatAppleLossless) as Int32),
             AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue as AnyObject,
@@ -46,25 +46,18 @@ open class Recorder: NSObject {
             AVNumberOfChannelsKey: channels as AnyObject,
             AVSampleRateKey: sampleRate as AnyObject
         ]
-        recorder = try AVAudioRecorder(url: recordUrl, settings: settings)
-        recorder?.prepareToRecord()
-    }
-    
-    open func record() throws {
-        if recorder == nil {
-            try prepareRecorder()
-        }
-        try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
-        try session.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-        recorder?.record()
+        
+        avRecorder = try AVAudioRecorder(url: url, settings: settings)
+        avRecorder?.prepareToRecord()
+        avRecorder?.record()
         state = .record
     }
     
     open func stop() {
         switch state {
         case .record:
-            recorder?.stop()
-            recorder = nil
+            avRecorder?.stop()
+            avRecorder = nil
             delegate?.didFinishRecording()
         default:
             break

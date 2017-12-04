@@ -39,6 +39,12 @@ class RecordsCell: UITableViewCell {
         soundView.layer.cornerRadius = 10
     }
     
+    internal func configureCell(sound: Sound) {
+        dateLabel.text? = Date.dateWithDayMonthYearTime(date: sound.date!)
+        durationLabel.text? = sound.duration!
+        nameLabel.text = sound.name
+    }
+    
     @IBAction func playSoundButtonTouchUp(_ sender: UIButton) {
         delegateCell?.playSound(sender: sender)
     }

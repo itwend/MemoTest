@@ -16,34 +16,48 @@ class RecordsViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
-    var managedObjectContext: NSManagedObjectContext? = AppDelegate.instance.persistentContainer.viewContext
-    let fileManager = FileManager.default
-    var audioPlayer: AVAudioPlayer?
+    let cellId = "RecordsCell"
+    var modelController: ModelController!
+    var player: Player!
     var recorder: Recorder!
+    var fileSteer: FileSteer!
+    var microphone: Microphone!
     var tempIndexPath: IndexPath?
-    let appDelegate = AppDelegate.instance
-
+    var _fetchedResultsController: NSFetchedResultsController<Sound>? = nil
+    var fetchedResultsController: NSFetchedResultsController<Sound> {
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController!
+        }
+        let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let context = StorageDataSource.shared.persistentContainer.viewContext
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                   managedObjectContext: context,
+                                                                   sectionNameKeyPath: nil,
+                                                                   cacheName: nil)
+        aFetchedResultsController.delegate = self
+        _fetchedResultsController = aFetchedResultsController
+        do {
+            try _fetchedResultsController!.performFetch()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        return _fetchedResultsController!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Memos"
         recordView.layer.cornerRadius = 10
         setupTableViewStyle()
-        setupAudioSession()
-        recorder = Recorder(to: "")
-        recorder.state = .stop
-        appDelegate.microphonePermssonCallBack = { [unowned self] allowed in
-            UIAlertController.showSimple(self, title: "Microphone Access", message: "Memos cannot record your voice without Microphone Permission. Go to your device Settings and then Privacy to grant permission.") {
-                let settingUrl = URL(string:String(format:"%@BundleID",UIApplicationOpenSettingsURLString))
-                if UIApplication.shared.canOpenURL(settingUrl!) {
-                    UIApplication.shared.open(settingUrl!, completionHandler: nil)
-                }
-            }
-        }
+        setupObjects()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        appDelegate.checkMicrophonePermission(completion: nil)
+        microphone.checkMicrophonePermission(completion: nil)
     }
     
     //MARK:- Actions
@@ -57,37 +71,53 @@ class RecordsViewController: UIViewController {
         }
     }
     
+    //MARK:- Objects
+    
+    func setupObjects() {
+        recorder = modelController.recorder
+        player = modelController.player
+        fileSteer = modelController.fileSteer
+        microphone = modelController.microphone
+        microphone.delegate = self
+    }
+    
     //MARK:- Recorder
     
     func startRecord() {
-        tableView.isUserInteractionEnabled = false
-        createRecorder()
+        let uuid = UUID().uuidString + ".m4a"
+        recorder.recordId = uuid
+        recorder.delegate = self
         do {
-            try recorder.record()
+            try self.recorder.record(to: uuid)
             showRecordImage(true)
+            tableView.isUserInteractionEnabled = false
         } catch {
             print(error)
         }
     }
     
     func stopRecord() {
-        tableView.isUserInteractionEnabled = true
         recorder.stop()
         showRecordImage(false)
+        tableView.isUserInteractionEnabled = true
     }
     
-    func createRecorder() {
-        let uuid = UUID().uuidString + ".m4a"
-        recorder = Recorder(to: uuid)
-        recorder.recordId = uuid
-        recorder.delegate = self
-        DispatchQueue.global().async {
-            do {
-                try self.recorder.prepareRecorder()
-            } catch {
-                print(error)
+    //MARk:- Player
+    
+    func startPlay(_ sender: UIButton) {
+        let sound = selectedSound(sender)
+        if let soundId = sound.id {
+            let filePath = fileSteer.documentsDirectory() + soundId
+            if let url = URL.init(string: filePath) {
+                player.startPlay(filePath: url)
+                player.delegate = self
+                recordView.isUserInteractionEnabled = false
             }
         }
+    }
+    
+    func stopPlay() {
+        player.stopPlay()
     }
     
     //MARK:- UI
@@ -106,91 +136,6 @@ class RecordsViewController: UIViewController {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     }
     
-    // MARK: - Fetched results controller
-    
-    var fetchedResultsController: NSFetchedResultsController<Sound> {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-        let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                                   managedObjectContext: self.managedObjectContext!,
-                                                                   sectionNameKeyPath: nil,
-                                                                   cacheName: nil)
-        aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
-        do {
-            try _fetchedResultsController!.performFetch()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-        return _fetchedResultsController!
-    }
-    
-    var _fetchedResultsController: NSFetchedResultsController<Sound>? = nil
-    
-    //MARK:- Documents
-    
-    func documentsDirectory() -> String {
-        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
-        guard let dirPath = paths.first else {
-            return ""
-        }
-        return "\(dirPath)/"
-    }
-    
-    func removeFileFromDirectory(_ id: String ,completion: (() -> Void)?) {
-        let filePath = documentsDirectory() + id
-        do {
-            try fileManager.removeItem(atPath: filePath)
-            completion?()
-        } catch let error as NSError {
-            print(error.debugDescription)
-        }
-    }
-    
-    //MARk:- Player
-    
-    func setupAudioSession() {
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .mixWithOthers)
-            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-            try audioSession.setActive(true)
-        } catch {
-            print("couldn't setup category \(error)")
-        }
-    }
-    
-    func startPlay(_ sender: UIButton) {
-        let sound = selectedSound(sender)
-        if let soundId = sound.id {
-            let filePath = documentsDirectory() + soundId
-            if let url = URL.init(string: filePath) {
-                do {
-                    audioPlayer = try AVAudioPlayer(contentsOf: url)
-                    audioPlayer?.delegate = self
-                    audioPlayer?.play()
-                    recordView.isUserInteractionEnabled = false
-                } catch {
-                    print("couldn't load file")
-                }
-            }
-        }
-    }
-    
-    func stopPlay() {
-        audioPlayer?.stop()
-        tempIndexPath = nil
-        tableView.reloadData()
-        recordView.isUserInteractionEnabled = true
-    }
-    
     func selectedSound(_ sender: UIButton) -> Sound {
         let indexPath = selectedIndexPath(sender)
         let sound = fetchedResultsController.object(at: indexPath)
@@ -207,11 +152,6 @@ class RecordsViewController: UIViewController {
         let cell = self.tableView.cellForRow(at: indexPath) as! RecordsCell
         return cell
     }
-    
-    func audioDuration(for resource: URL) -> Double {
-        let asset = AVURLAsset(url: resource)
-        return Double(CMTimeGetSeconds(asset.duration))
-    }
 
 }
 
@@ -223,13 +163,11 @@ extension RecordsViewController: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecordsCell", for: indexPath) as! RecordsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RecordsCell
         cell.selectionStyle = .none
         cell.delegateCell = self
         let sound = fetchedResultsController.object(at: indexPath)
-        cell.dateLabel.text? = Date.dateWithDayMonthYearTime(date: sound.date!)
-        cell.durationLabel.text? = sound.duration!
-        cell.nameLabel.text = sound.name
+        cell.configureCell(sound: sound)
         if tempIndexPath == indexPath {
             cell.isPlaying = true
         } else {
@@ -286,7 +224,7 @@ extension RecordsViewController: RecordsCellDelegate {
         }, secondButtonTitle: "Delete") {
             let sound = self.selectedSound(sender)
             if let id = sound.id {
-                self.removeFileFromDirectory(id, completion: {
+                self.fileSteer.removeFileFromDirectory(id, completion: {
                     StorageDataSource.shared.removeSound(sound)
                     if self.tempIndexPath != nil {
                         self.stopPlay()
@@ -304,20 +242,32 @@ extension RecordsViewController: RecorderDelegate {
             let newRecord = Record()
             newRecord.id = self.recorder.recordId!
             newRecord.name = text!
-            newRecord.duration = String(format: "%.0fs",self.audioDuration(for: self.recorder.recordUrl))
+            newRecord.duration = String(format: "%.0fs",AudioManager.audioDuration(for: self.recorder.recordUrl!))
             newRecord.date = Date()
             StorageDataSource.shared.saveSound(record: newRecord)
         }) {
-            self.removeFileFromDirectory(self.recorder.recordId!, completion: nil)
+            self.fileSteer.removeFileFromDirectory(self.recorder.recordId!, completion: nil)
         }
     }
 }
 
-extension RecordsViewController: AVAudioPlayerDelegate {
+extension RecordsViewController: PlayerDelegate {
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    func didFinishPlaying() {
         tempIndexPath = nil
         tableView.reloadData()
         recordView.isUserInteractionEnabled = true
+    }
+}
+
+extension RecordsViewController: MicrophoneDelegate {
+    
+    func showPermissionAlert() {
+        UIAlertController.showSimple(self, title: "Microphone Access", message: "Memos cannot record your voice without Microphone Permission. Go to your device Settings and then Privacy to grant permission.") {
+            let settingUrl = URL(string:String(format:"%@BundleID",UIApplicationOpenSettingsURLString))
+            if UIApplication.shared.canOpenURL(settingUrl!) {
+                UIApplication.shared.open(settingUrl!, completionHandler: nil)
+            }
+        }
     }
 }

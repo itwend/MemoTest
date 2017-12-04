@@ -27,6 +27,11 @@
 		4923FD4A1FCEF46F0054B1EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD491FCEF46E0054B1EE /* Assets.xcassets */; };
 		4923FD4C1FD0D3720054B1EE /* NSDate+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4923FD4B1FD0D3710054B1EE /* NSDate+Utilities.swift */; };
 		4923FD511FD0E9A00054B1EE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4923FD501FD0E99F0054B1EE /* icon.png */; };
+		4998045F1FD4D42D00CE373B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998045E1FD4D42D00CE373B /* Player.swift */; };
+		499804621FD4D44A00CE373B /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499804611FD4D44A00CE373B /* AudioManager.swift */; };
+		499804641FD4EDA400CE373B /* FileSteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499804631FD4EDA400CE373B /* FileSteer.swift */; };
+		499804671FD4F06200CE373B /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499804661FD4F06200CE373B /* ModelController.swift */; };
+		4998046B1FD4FFA700CE373B /* Microphone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998046A1FD4FFA700CE373B /* Microphone.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +57,11 @@
 		4923FD491FCEF46E0054B1EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4923FD4B1FD0D3710054B1EE /* NSDate+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+Utilities.swift"; sourceTree = "<group>"; };
 		4923FD501FD0E99F0054B1EE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		4998045E1FD4D42D00CE373B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		499804611FD4D44A00CE373B /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		499804631FD4EDA400CE373B /* FileSteer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSteer.swift; sourceTree = "<group>"; };
+		499804661FD4F06200CE373B /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		4998046A1FD4FFA700CE373B /* Microphone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Microphone.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +97,10 @@
 				4923FD4D1FD0E7BF0054B1EE /* Resource */,
 				4923FD311FCDE79E0054B1EE /* Helpers */,
 				4923FD3E1FCE1B890054B1EE /* CoreData */,
-				4923FD381FCDF4ED0054B1EE /* Recorder */,
+				499804651FD4EE1000CE373B /* FileSteer */,
+				4998045D1FD4D40500CE373B /* AudioManager */,
 				4923FD3B1FCE058A0054B1EE /* Model */,
+				499804681FD4F72E00CE373B /* ModelController */,
 				4923FD2B1FCDE6890054B1EE /* Auth */,
 				4923FD2A1FCDE6730054B1EE /* Records */,
 				4923FD2E1FCDE77B0054B1EE /* GeneralNavigation */,
@@ -173,6 +185,49 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		4998045D1FD4D40500CE373B /* AudioManager */ = {
+			isa = PBXGroup;
+			children = (
+				499804611FD4D44A00CE373B /* AudioManager.swift */,
+				499804601FD4D43300CE373B /* Player */,
+				4923FD381FCDF4ED0054B1EE /* Recorder */,
+				499804691FD4FF9800CE373B /* Microphone */,
+			);
+			path = AudioManager;
+			sourceTree = "<group>";
+		};
+		499804601FD4D43300CE373B /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				4998045E1FD4D42D00CE373B /* Player.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		499804651FD4EE1000CE373B /* FileSteer */ = {
+			isa = PBXGroup;
+			children = (
+				499804631FD4EDA400CE373B /* FileSteer.swift */,
+			);
+			path = FileSteer;
+			sourceTree = "<group>";
+		};
+		499804681FD4F72E00CE373B /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				499804661FD4F06200CE373B /* ModelController.swift */,
+			);
+			path = ModelController;
+			sourceTree = "<group>";
+		};
+		499804691FD4FF9800CE373B /* Microphone */ = {
+			isa = PBXGroup;
+			children = (
+				4998046A1FD4FFA700CE373B /* Microphone.swift */,
+			);
+			path = Microphone;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -250,16 +305,21 @@
 				4923FD1E1FCDE24F0054B1EE /* MemoTest.xcdatamodeld in Sources */,
 				4923FD421FCE217B0054B1EE /* RecordsCell.swift in Sources */,
 				4923FD441FCEE6990054B1EE /* UIAlertController+Helpers.swift in Sources */,
+				499804621FD4D44A00CE373B /* AudioManager.swift in Sources */,
 				4923FD181FCDE24F0054B1EE /* RecordsViewController.swift in Sources */,
+				4998045F1FD4D42D00CE373B /* Player.swift in Sources */,
 				4923FD331FCDE7B90054B1EE /* UIColor+String.swift in Sources */,
+				4998046B1FD4FFA700CE373B /* Microphone.swift in Sources */,
 				4923FD301FCDE7970054B1EE /* NavigationController.swift in Sources */,
 				4923FD4C1FD0D3720054B1EE /* NSDate+Utilities.swift in Sources */,
 				4923FD371FCDE8820054B1EE /* PermissionViewController.swift in Sources */,
+				499804671FD4F06200CE373B /* ModelController.swift in Sources */,
 				4923FD161FCDE24F0054B1EE /* AppDelegate.swift in Sources */,
 				4923FD401FCE1BAB0054B1EE /* StorageDataSource.swift in Sources */,
 				4923FD481FCEE8800054B1EE /* FieldsValidator.swift in Sources */,
 				4923FD2D1FCDE6920054B1EE /* Auth.swift in Sources */,
 				4923FD3D1FCE059A0054B1EE /* Record.swift in Sources */,
+				499804641FD4EDA400CE373B /* FileSteer.swift in Sources */,
 				4923FD3A1FCDF4FF0054B1EE /* Recorder.swift in Sources */,
 				4923FD461FCEE72B0054B1EE /* UIViewController+Helpers.swift in Sources */,
 			);

@@ -14,10 +14,9 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var auth = Auth()
+    var microphone = Microphone()
     var window: UIWindow?
-    static let persistentName = "MemoTest"
     static var instance = UIApplication.shared.delegate as! AppDelegate
-    var microphonePermssonCallBack : ((_ allowed: Bool) -> Void)?
     
     lazy var authViewController: UIViewController = {
         let viewController = UIStoryboard(name: "Auth", bundle: nil).instantiateInitialViewController()
@@ -36,71 +35,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func changeRootViewController() {
-        
         if auth.isFirstLaunch {
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let controller = mainStoryboard.instantiateViewController(withIdentifier: "RecordsViewController") as! RecordsViewController
+            _ = AudioManager()
+            controller.modelController = ModelController()
             let navVC = NavigationController.init(rootViewController: controller)
             self.window?.rootViewController = navVC
-            if controller.managedObjectContext == nil {
-                controller.managedObjectContext = self.persistentContainer.viewContext
-            }
-            checkMicrophonePermission(completion: nil)
+            microphone.checkMicrophonePermission(completion: nil)
         } else {
             let authStoryboard: UIStoryboard = UIStoryboard(name: "Auth", bundle: nil)
             let controller = authStoryboard.instantiateViewController(withIdentifier: "PermissionViewController") as! PermissionViewController
+            controller.microphone = microphone
             let navVC = NavigationController.init(rootViewController: controller)
             self.window?.rootViewController = navVC
-        }
-        
-    }
-
-    func checkMicrophonePermission(completion: (() -> Void)?) {
-        AVAudioSession.sharedInstance().requestRecordPermission () {
-            [unowned self] allowed in
-            if !allowed {
-                completion?()
-                self.microphonePermssonCallBack?(false)
-            } else {
-                completion?()
-            }
         }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         if auth.isFirstLaunch {
-            checkMicrophonePermission(completion: nil)
+            microphone.checkMicrophonePermission(completion: nil)
         }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        self.saveContext()
+        StorageDataSource.shared.saveContext()
     }
 
-    
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: AppDelegate.persistentName)
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
 }
