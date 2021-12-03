@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,14 +13,14 @@
             <objects>
                 <viewController storyboardIdentifier="PermissionViewController" id="xic-lG-GHz" customClass="PermissionViewController" customModule="MemoTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y2X-dz-HOr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background2" translatesAutoresizingMaskIntoConstraints="NO" id="oG5-8e-bMn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7U-ea-x6z">
-                                <rect key="frame" x="21" y="575" width="332" height="52"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7U-ea-x6z">
+                                <rect key="frame" x="21" y="770" width="371" height="52"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="0.70874357876712324" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="Zt7-wr-Md8"/>
@@ -37,7 +35,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memos require access to your microphone. Please allow permission for create records." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJb-9L-cLB">
-                                <rect key="frame" x="55" y="273" width="264" height="121"/>
+                                <rect key="frame" x="75" y="387.5" width="264" height="121"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="EkP-zV-H5j"/>
                                     <constraint firstAttribute="width" constant="264" id="tXe-vb-X0Z"/>
@@ -47,19 +45,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" translatesAutoresizingMaskIntoConstraints="NO" id="Hzh-5Q-2Ki">
-                                <rect key="frame" x="117" y="95" width="140" height="120"/>
+                                <rect key="frame" x="137" y="209.5" width="140" height="120"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Zw6-Oj-Tih"/>
-                                    <constraint firstAttribute="width" constant="140" id="i0d-lg-Zcy"/>
+                                    <constraint firstAttribute="height" constant="120" id="BM4-RH-J9G"/>
+                                    <constraint firstAttribute="width" constant="140" id="FDP-f7-wM9"/>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="HuL-Dk-bHc"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HuL-Dk-bHc" firstAttribute="trailing" secondItem="x7U-ea-x6z" secondAttribute="trailing" constant="22" id="3Me-77-wd0"/>
-                            <constraint firstItem="oG5-8e-bMn" firstAttribute="bottom" secondItem="HuL-Dk-bHc" secondAttribute="bottom" id="9nE-nr-9Qj"/>
-                            <constraint firstItem="cJb-9L-cLB" firstAttribute="top" secondItem="Hzh-5Q-2Ki" secondAttribute="bottom" constant="58" id="B0P-C9-0TR"/>
-                            <constraint firstItem="Hzh-5Q-2Ki" firstAttribute="centerX" secondItem="oG5-8e-bMn" secondAttribute="centerX" id="DXe-zB-xg4"/>
+                            <constraint firstItem="Hzh-5Q-2Ki" firstAttribute="centerX" secondItem="oG5-8e-bMn" secondAttribute="centerX" id="5d7-IC-WFJ"/>
+                            <constraint firstItem="cJb-9L-cLB" firstAttribute="top" secondItem="Hzh-5Q-2Ki" secondAttribute="bottom" constant="58" id="9DR-ZR-fQC"/>
+                            <constraint firstItem="oG5-8e-bMn" firstAttribute="bottom" secondItem="Y2X-dz-HOr" secondAttribute="bottom" id="9nE-nr-9Qj"/>
                             <constraint firstItem="x7U-ea-x6z" firstAttribute="leading" secondItem="HuL-Dk-bHc" secondAttribute="leading" constant="21" id="e35-GU-2LG"/>
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="top" secondItem="Y2X-dz-HOr" secondAttribute="top" id="fwA-wF-szw"/>
                             <constraint firstItem="oG5-8e-bMn" firstAttribute="leading" secondItem="HuL-Dk-bHc" secondAttribute="leading" id="hmI-rI-xZm"/>
@@ -68,7 +67,6 @@
                             <constraint firstItem="cJb-9L-cLB" firstAttribute="centerY" secondItem="oG5-8e-bMn" secondAttribute="centerY" id="wZL-gv-3m9"/>
                             <constraint firstItem="HuL-Dk-bHc" firstAttribute="bottom" secondItem="x7U-ea-x6z" secondAttribute="bottom" constant="40" id="zld-E2-8d7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="HuL-Dk-bHc"/>
                     </view>
                     <connections>
                         <outlet property="permissionMicButton" destination="x7U-ea-x6z" id="5rx-gd-CIh"/>
@@ -80,7 +78,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background2" width="375" height="666"/>
-        <image name="mic" width="253" height="240"/>
+        <image name="background2" width="375" height="666.66668701171875"/>
+        <image name="mic" width="253.66667175292969" height="240"/>
     </resources>
 </document>

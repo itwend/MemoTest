@@ -133,7 +133,7 @@ class RecordsViewController: UIViewController {
     func setupTableViewStyle() {
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
     func selectedSound(_ sender: UIButton) -> Sound {
@@ -264,7 +264,7 @@ extension RecordsViewController: MicrophoneDelegate {
     
     func showPermissionAlert() {
         UIAlertController.showSimple(self, title: "Microphone Access", message: "Memos cannot record your voice without Microphone Permission. Go to your device Settings and then Privacy to grant permission.") {
-            let settingUrl = URL(string:String(format:"%@BundleID",UIApplicationOpenSettingsURLString))
+            let settingUrl = URL(string:String(format:"%@BundleID",UIApplication.openSettingsURLString))
             if UIApplication.shared.canOpenURL(settingUrl!) {
                 UIApplication.shared.open(settingUrl!, completionHandler: nil)
             }

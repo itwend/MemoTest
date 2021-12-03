@@ -10,14 +10,14 @@ import UIKit
 
 public extension UIViewController {
     
-    public var isVisible: Bool {
+    var isVisible: Bool {
         if isViewLoaded {
             return view.window != nil
         }
         return false
     }
     
-    public var isTopViewController: Bool {
+    var isTopViewController: Bool {
         if self.navigationController != nil {
             return self.navigationController?.visibleViewController === self
         } else if self.tabBarController != nil {
@@ -27,10 +27,12 @@ public extension UIViewController {
         }
     }
     
-    public class func getVisibleViewController(_ viewController: UIViewController?) -> UIViewController? {
+    class func getVisibleViewController(_ viewController: UIViewController?) -> UIViewController? {
         var rootViewController = viewController
         if rootViewController == nil {
-            rootViewController = UIApplication.shared.keyWindow?.rootViewController
+            rootViewController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController
+
+            //UIApplication.shared.keyWindow?.rootViewController
         }
         if rootViewController?.presentedViewController == nil {
             return rootViewController

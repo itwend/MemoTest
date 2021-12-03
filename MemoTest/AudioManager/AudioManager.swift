@@ -25,12 +25,17 @@ class AudioManager: NSObject {
     
     func setupAudioSession() {
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .mixWithOthers)
-            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+            try audioSession.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: .mixWithOthers)
+            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
             try audioSession.setActive(true)
         } catch {
             print("couldn't setup category \(error)")
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }
